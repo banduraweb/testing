@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { CreateQuestionDto } from './dto/create-question.dto';
 import { QuestionService } from './question.service';
 
@@ -13,4 +13,8 @@ export class QuestionController {
   async findAll() {
     return await this.questionService.findAll();
   }
+  @Delete('/:id')
+ async delete (@Param('id') id:string) {
+    return await this.questionService.delete(id)
+ }
 }

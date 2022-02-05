@@ -29,6 +29,6 @@ export class VariantEntity {
     this.updatedAt = new Date();
   }
 
-  @ManyToOne(() => QuestionEntity, (question) => question.variants)
+  @ManyToOne(() => QuestionEntity, (question) => question.variants, {onDelete:'CASCADE'})
   belongsToQuestion: QuestionEntity;
 }
