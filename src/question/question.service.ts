@@ -66,12 +66,23 @@ export class QuestionService {
 
         return {
           ...question,
-          variants,
+          variants: variants.map((variant) => ({
+            variant: variant.variant,
+            isCorrect: variant.isCorrect,
+            id: variant.id,
+          })),
         };
       },
     );
   }
   async findAll() {
     return await this.questionRepository.find({ relations: ['variants'] });
+  }
+  async delete(id: string) {
+    const question = await this.questionRepository.findOne(parseInt(id));
+    if (!question) {
+      throw new BadRequestException(`not found by id = ${id}`);
+    }
+    return await this.questionRepository.delete(parseInt(id));
   }
 }
