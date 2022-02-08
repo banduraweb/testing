@@ -5,4 +5,7 @@ export class UserDto {
   id: number;
   @Expose()
   userName: string;
+  @Expose()
+  role: string
 }
+
