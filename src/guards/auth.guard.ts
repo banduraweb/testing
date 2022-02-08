@@ -16,11 +16,10 @@ export interface ExpressRequest extends Request {
 export class AuthGuard implements CanActivate {
   canActivate(context: ExecutionContext): boolean {
     const request = context.switchToHttp().getRequest<ExpressRequest>();
-    console.log(request.user, 'user');
     if (request.user) {
       return true;
     }
 
-    throw new HttpException('Not authorized 22', HttpStatus.UNAUTHORIZED);
+    throw new HttpException('Not authorized', HttpStatus.UNAUTHORIZED);
   }
 }
