@@ -6,6 +6,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { VariantEntity } from '../variant/variant.entity';
+import { UserResultEntity } from '../user-results/user-result.entity';
 
 @Entity({ name: 'questions' })
 export class QuestionEntity {
@@ -28,4 +29,7 @@ export class QuestionEntity {
 
   @OneToMany(() => VariantEntity, (variant) => variant.belongsToQuestion)
   variants: VariantEntity[];
+
+  @OneToMany(() => UserResultEntity, (userResult) => userResult.user)
+  userQuestions: UserResultEntity[];
 }

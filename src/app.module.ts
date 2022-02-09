@@ -1,4 +1,4 @@
-import {MiddlewareConsumer, Module, RequestMethod} from '@nestjs/common';
+import { MiddlewareConsumer, Module, RequestMethod } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -9,9 +9,10 @@ import { VariantModule } from './variant/variant.module';
 import { APP_FILTER } from '@nestjs/core';
 import { HttpExceptionFilter } from './filters/http-exception.filter';
 import { UserModule } from './user/user.module';
-import {AuthMiddleware} from "./auth/middlewares/auth.middleware";
-import {RolesModule} from "./roles/roles.module";
-import {CurrentUserMiddleware} from "./auth/middlewares/current-user.middleware";
+import { AuthMiddleware } from './auth/middlewares/auth.middleware';
+import { RolesModule } from './roles/roles.module';
+import { CurrentUserMiddleware } from './auth/middlewares/current-user.middleware';
+import { UserResultsModule } from './user-results/user-results.module';
 
 @Module({
   imports: [
@@ -20,7 +21,8 @@ import {CurrentUserMiddleware} from "./auth/middlewares/current-user.middleware"
     QuestionModule,
     VariantModule,
     UserModule,
-    RolesModule
+    RolesModule,
+    UserResultsModule,
   ],
   controllers: [AppController],
   providers: [

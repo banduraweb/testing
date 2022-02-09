@@ -9,7 +9,7 @@ import {
 export class CreateVariantDto {
   @IsNotEmpty()
   @IsString()
-  @MinLength(2)
+  @MinLength(1)
   variant: string;
   @IsNotEmpty()
   @IsBoolean()

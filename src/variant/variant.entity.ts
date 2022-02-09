@@ -7,6 +7,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { QuestionEntity } from '../question/question.entity';
+import { UserResultEntity } from '../user-results/user-result.entity';
 @Entity({ name: 'variants' })
 export class VariantEntity {
   @PrimaryGeneratedColumn()
@@ -33,4 +34,7 @@ export class VariantEntity {
     onDelete: 'CASCADE',
   })
   belongsToQuestion: QuestionEntity;
+
+  @OneToMany(() => UserResultEntity, (userResult) => userResult.user)
+  userVariants: UserResultEntity[];
 }

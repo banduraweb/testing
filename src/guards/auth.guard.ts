@@ -5,11 +5,11 @@ import {
   HttpStatus,
   Injectable,
 } from '@nestjs/common';
-import {Request} from 'express';
-import {UserEntity} from "../user/user.entity";
+import { Request } from 'express';
+import { UserEntity } from '../user/user.entity';
 
 export interface ExpressRequest extends Request {
-  user?: UserEntity
+  user?: UserEntity;
 }
 
 @Injectable()

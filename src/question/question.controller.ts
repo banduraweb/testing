@@ -1,10 +1,19 @@
-import {Body, Controller, Delete, Get, Param, Post, UseGuards} from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  UseGuards,
+} from '@nestjs/common';
 import { CreateQuestionDto } from './dto/create-question.dto';
 import { QuestionService } from './question.service';
-import {AuthGuard} from "../guards/auth.guard";
-import {AdminGuard} from "../guards/admin.guard";
-import {Serialize} from "../interceptors/serialize.interceptor";
-import {CurrentUser} from "../decorators/current-user.decorator";
+import { AuthGuard } from '../guards/auth.guard';
+import { AdminGuard } from '../guards/admin.guard';
+import { Serialize } from '../interceptors/serialize.interceptor';
+import { CurrentUser } from '../decorators/current-user.decorator';
+import { CurrentUserType } from '../sharedTypes/current-user';
 
 @Controller('/question')
 export class QuestionController {
@@ -16,7 +25,7 @@ export class QuestionController {
   }
   @Get()
   @UseGuards(AuthGuard)
-  async findAll(@CurrentUser() currentUser: any) {
+  async findAll(@CurrentUser() currentUser: CurrentUserType) {
     return await this.questionService.findAll(currentUser);
   }
   @UseGuards(AdminGuard)

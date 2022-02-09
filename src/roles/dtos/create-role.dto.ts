@@ -1,6 +1,6 @@
-import {IsIn} from "class-validator";
+import { IsIn } from 'class-validator';
 
 export class CreateRoleDto {
-    @IsIn(['ADMIN', 'USER'])
-    role: string;
+  @IsIn(['ADMIN', 'USER'])
+  role: string;
 }

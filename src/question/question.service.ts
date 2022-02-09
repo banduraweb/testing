@@ -2,15 +2,16 @@ import { CreateQuestionDto } from './dto/create-question.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { QuestionEntity } from './question.entity';
 import {
-    EntityManager,
-    getManager, getRepository,
-    Repository,
-    Transaction,
-    TransactionManager,
-    TransactionRepository,
+  EntityManager,
+  getManager,
+  getRepository,
+  Repository,
+  Transaction,
+  TransactionManager,
+  TransactionRepository,
 } from 'typeorm';
 import { VariantEntity } from '../variant/variant.entity';
-import {BadRequestException, Injectable} from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 @Injectable()
 export class QuestionService {
   constructor(
@@ -76,16 +77,26 @@ export class QuestionService {
     );
   }
   async findAll(currentUser) {
-      const { role } = currentUser;
-      let selectColumns = ['questions.id', 'questions.content', 'variants.id', 'variants.variant', 'variants.isCorrect'];
-      if(role!=='ADMIN'){
-          selectColumns = selectColumns.filter(column=>column!=='variants.isCorrect')
-      }
-      return await getRepository(QuestionEntity).createQueryBuilder('questions')
-          .select(selectColumns)
-          .leftJoin('questions.variants', 'variants')
-          .getMany();
-      // return await this.questionRepository.find({ relations: ['variants'] });
+    const { role } = currentUser;
+    let selectColumns = [
+      'questions.id',
+      'questions.content',
+      'variants.id',
+      'variants.variant',
+      'variants.isCorrect',
+    ];
+    if (role?.role !== 'ADMIN') {
+      console.log('here');
+      selectColumns = selectColumns.filter(
+        (column) => column !== 'variants.isCorrect',
+      );
+    }
+    return await getRepository(QuestionEntity)
+      .createQueryBuilder('questions')
+      .select(selectColumns)
+      .leftJoin('questions.variants', 'variants')
+      .getMany();
+    // return await this.questionRepository.find({ relations: ['variants'] });
   }
   async delete(id: string) {
     const question = await this.questionRepository.findOne(parseInt(id));

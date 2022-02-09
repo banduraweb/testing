@@ -14,7 +14,7 @@ import { Type } from 'class-transformer';
 export class CreateQuestionDto {
   @IsNotEmpty()
   @IsString()
-  @MinLength(10)
+  @MinLength(2)
   content: string;
   @IsArray()
   @ArrayMinSize(4)
