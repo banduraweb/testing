@@ -24,7 +24,7 @@ export class UserResultsService {
   async create(
     createUserResultDto: CreateUserResultDto,
     currentUser: CurrentUserType,
-  ) {
+  ):Promise<{message: string}> {
     const { questionId, variantId } = createUserResultDto;
     const variant = await this.variantRepository.findOne(parseInt(variantId), {
       relations: ['belongsToQuestion'],

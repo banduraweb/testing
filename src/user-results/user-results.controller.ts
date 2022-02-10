@@ -14,6 +14,7 @@ import { UpdateUserResultDto } from './dto/update-user-result.dto';
 import { CurrentUser } from '../decorators/current-user.decorator';
 import { CurrentUserType } from '../sharedTypes/current-user';
 import { AuthGuard } from '../guards/auth.guard';
+import {AdminGuard} from "../guards/admin.guard";
 
 @Controller('user-results')
 export class UserResultsController {
@@ -32,7 +33,7 @@ export class UserResultsController {
   async findAll() {
     return await this.userResultsService.findAll();
   }
-
+  @UseGuards(AdminGuard)
   @Get(':id')
   async findUsersResult(@Param('id') id: string) {
     return await this.userResultsService.findUsersResult(id);
