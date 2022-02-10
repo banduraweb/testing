@@ -39,8 +39,12 @@ export class UserResultsService {
     if (variant.belongsToQuestion.id !== parseInt(questionId)) {
       throw new BadRequestException('Not Found case 2');
     }
-
-    return this.userResultRepository.save({ user, question, variant });
+    try {
+      await this.userResultRepository.save({ user, question, variant });
+    } catch (e) {
+      throw new BadRequestException('you have already answered to current question')
+    }
+    return {message: 'Oh you are so quick rabbit'}
   }
 
   findAll() {

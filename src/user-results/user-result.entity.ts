@@ -5,14 +5,17 @@ import {
   OneToMany,
   PrimaryColumn,
   PrimaryGeneratedColumn,
-  TableForeignKey,
+  TableForeignKey, Unique,
 } from 'typeorm';
 import { VariantEntity } from '../variant/variant.entity';
 import { UserEntity } from '../user/user.entity';
 import { QuestionEntity } from '../question/question.entity';
 
 @Entity({ name: 'users_result' })
+@Unique(['user', 'question'])
+@Unique(['user', 'question', 'variant'])
 export class UserResultEntity {
+
   @PrimaryGeneratedColumn()
   id: number;
   @ManyToOne(() => UserEntity, (user) => user.id)
