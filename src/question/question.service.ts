@@ -54,7 +54,7 @@ export class QuestionService {
         if (truly !== 1) {
           throw new BadRequestException('falsy should be 3, truly - 1');
         }
-        const newQuestion = this.questionRepository.create(createQuestion);
+        const newQuestion = this.questionRepository.create({content: createQuestion.content, variants: createQuestion.variants});
         const question = await transactionalEntityManager.save<QuestionEntity>(
           newQuestion,
         );
