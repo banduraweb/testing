@@ -1,5 +1,4 @@
-import ormconfig from "./ormconfig";
-
+import ormconfig from './ormconfig';
 
 const ormseedconfig = {
   ...ormconfig,

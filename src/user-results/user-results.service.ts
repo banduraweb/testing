@@ -24,7 +24,7 @@ export class UserResultsService {
   async create(
     createUserResultDto: CreateUserResultDto,
     currentUser: CurrentUserType,
-  ):Promise<{message: string}> {
+  ): Promise<{ message: string }> {
     const { questionId, variantId } = createUserResultDto;
     const variant = await this.variantRepository.findOne(parseInt(variantId), {
       relations: ['belongsToQuestion'],
@@ -42,9 +42,11 @@ export class UserResultsService {
     try {
       await this.userResultRepository.save({ user, question, variant });
     } catch (e) {
-      throw new BadRequestException('you have already answered to current question')
+      throw new BadRequestException(
+        'you have already answered to current question',
+      );
     }
-    return {message: 'Oh you are so quick rabbit'}
+    return { message: 'Oh you are so quick rabbit' };
   }
 
   findAll() {

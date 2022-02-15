@@ -12,7 +12,7 @@ import {
 } from 'typeorm';
 import { VariantEntity } from '../variant/variant.entity';
 import { BadRequestException, Injectable } from '@nestjs/common';
-import {UserResultEntity} from "../user-results/user-result.entity";
+import { UserResultEntity } from '../user-results/user-result.entity';
 @Injectable()
 export class QuestionService {
   constructor(
@@ -54,14 +54,20 @@ export class QuestionService {
         if (truly !== 1) {
           throw new BadRequestException('falsy should be 3, truly - 1');
         }
-        const newQuestion = this.questionRepository.create({content: createQuestion.content, variants: createQuestion.variants});
+        const newQuestion = this.questionRepository.create({
+          content: createQuestion.content,
+          variants: createQuestion.variants.map(({ variant, isCorrect }) => ({
+            variant,
+            isCorrect,
+          })),
+        });
         const question = await transactionalEntityManager.save<QuestionEntity>(
           newQuestion,
         );
         const newVariants = this.variantRepository.create(
-          createQuestion.variants.map(({variant, isCorrect}) => ({
-              variant,
-              isCorrect,
+          createQuestion.variants.map(({ variant, isCorrect }) => ({
+            variant,
+            isCorrect,
             belongsToQuestion: question,
           })),
         );
@@ -94,17 +100,19 @@ export class QuestionService {
         (column) => column !== 'variants.isCorrect',
       );
     }
-    const questions =  await getRepository(QuestionEntity)
+    const questions = await getRepository(QuestionEntity)
       .createQueryBuilder('questions')
       .select(selectColumns)
       .leftJoin('questions.variants', 'variants')
       .getMany();
-    const answeredQuestions = await this.userResultRepository.find({where: {user: parseInt(currentUser.id)}})
-      if(answeredQuestions.length > 0){
-          const answered = answeredQuestions.map(question=>question.id)
-          return questions.filter(question=>!answered.includes(question.id))
-      }
-      return questions
+    const answeredQuestions = await this.userResultRepository.find({
+      where: { user: parseInt(currentUser.id) },
+    });
+    if (answeredQuestions.length > 0) {
+      const answered = answeredQuestions.map((question) => question.id);
+      return questions.filter((question) => !answered.includes(question.id));
+    }
+    return questions;
     // return await this.questionRepository.find({ relations: ['variants'] });
   }
   async delete(id: string) {
