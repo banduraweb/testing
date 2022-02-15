@@ -21,7 +21,12 @@
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js --config src/ormconfig.ts",
     "db:create": "npm run typeorm migration:generate -- -n",
-    "db:migrate": "npm run typeorm migration:run"
+    "db:migrate": "npm run typeorm migration:run",
+    "typeorm:sync": "npm run typeorm schema:sync",
+    "typeorm:drop": "npm run typeorm schema:drop",
+    "db:seed": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js --config src/ormseedconfig.ts migration:run",
+    "db:createseed": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js --config src/ormseedconfig.ts migration:create -n AddRoles"
+
   },
   "dependencies": {
     "@nestjs/common": "^8.0.0",
