@@ -109,7 +109,7 @@ export class QuestionService {
       where: { user: parseInt(currentUser.id) },
     });
     if (answeredQuestions.length > 0) {
-      const answered = answeredQuestions.map((question) => question.id);
+      const answered = answeredQuestions.map((userResult) => userResult.question.id);
       return questions.filter((question) => !answered.includes(question.id));
     }
     return questions;
