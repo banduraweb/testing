@@ -59,8 +59,9 @@ export class QuestionService {
           newQuestion,
         );
         const newVariants = this.variantRepository.create(
-          createQuestion.variants.map((variant) => ({
-            ...variant,
+          createQuestion.variants.map(({variant, isCorrect}) => ({
+              variant,
+              isCorrect,
             belongsToQuestion: question,
           })),
         );
