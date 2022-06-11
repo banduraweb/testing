@@ -16,6 +16,9 @@ export class CreateQuestionDto {
   @IsString()
   @MinLength(2)
   content: string;
+  @IsNotEmpty()
+  @IsString()
+  belongsToCategoryId: string;
   @IsArray()
   @ArrayMinSize(4)
   @ArrayMaxSize(4)

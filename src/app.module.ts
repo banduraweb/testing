@@ -13,6 +13,7 @@ import { AuthMiddleware } from './auth/middlewares/auth.middleware';
 import { RolesModule } from './roles/roles.module';
 import { CurrentUserMiddleware } from './auth/middlewares/current-user.middleware';
 import { UserResultsModule } from './user-results/user-results.module';
+import { CategoriesModule } from './categories/categories.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { UserResultsModule } from './user-results/user-results.module';
     UserModule,
     RolesModule,
     UserResultsModule,
+    CategoriesModule,
   ],
   controllers: [AppController],
   providers: [

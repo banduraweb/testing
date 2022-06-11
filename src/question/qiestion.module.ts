@@ -5,10 +5,11 @@ import { QuestionEntity } from './question.entity';
 import { QuestionService } from './question.service';
 import { VariantEntity } from '../variant/variant.entity';
 import { UserResultEntity } from '../user-results/user-result.entity';
+import {CategoryEntity} from "../categories/entities/category.entity";
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([QuestionEntity, VariantEntity, UserResultEntity]),
+    TypeOrmModule.forFeature([QuestionEntity, VariantEntity, UserResultEntity, CategoryEntity]),
   ],
   controllers: [QuestionController],
   providers: [QuestionService],
