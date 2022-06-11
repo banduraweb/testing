@@ -25,7 +25,7 @@
     "typeorm:sync": "npm run typeorm schema:sync",
     "typeorm:drop": "npm run typeorm schema:drop",
     "db:seed": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js --config src/ormseedconfig.ts migration:run",
-    "db:createseed": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js --config src/ormseedconfig.ts migration:create -n AddRoles"
+    "db:createseed": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js --config src/ormseedconfig.ts migration:create -n addDefaultCategory"
   },
   "dependencies": {
     "@nestjs/common": "^8.0.0",

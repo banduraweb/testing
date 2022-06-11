@@ -4,7 +4,7 @@ import {
   Delete,
   Get,
   Param,
-  Post,
+  Post, Query,
   UseGuards,
 } from '@nestjs/common';
 import { CreateQuestionDto } from './dto/create-question.dto';
@@ -25,8 +25,8 @@ export class QuestionController {
   }
   @Get()
   @UseGuards(AuthGuard)
-  async findAll(@CurrentUser() currentUser: CurrentUserType) {
-    return await this.questionService.findAll(currentUser);
+  async findAll(@CurrentUser() currentUser: CurrentUserType, @Query('categoryId') categoryId: string ) {
+    return await this.questionService.findAll(currentUser, categoryId);
   }
   @UseGuards(AdminGuard)
   @Delete('/:id')

@@ -53,7 +53,15 @@ export class UserResultsService {
     return `This action returns all userResults`;
   }
 
-  async findUsersResult(id) {
+  async findUsersResult(id, categoryId) {
+    if(categoryId){
+      const result = await this.userResultRepository.find({
+        where: { user: parseInt(id) },
+        relations: ['question', 'variant'],
+      });
+
+      return result.filter(item=>item?.question?.belongsToCategory?.id === parseInt(categoryId))
+    }
     return await this.userResultRepository.find({
       where: { user: parseInt(id) },
       relations: ['question', 'variant'],

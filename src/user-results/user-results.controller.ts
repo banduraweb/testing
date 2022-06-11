@@ -6,7 +6,7 @@ import {
   Patch,
   Param,
   Delete,
-  UseGuards,
+  UseGuards, Query,
 } from '@nestjs/common';
 import { UserResultsService } from './user-results.service';
 import { CreateUserResultDto } from './dto/create-user-result.dto';
@@ -35,8 +35,8 @@ export class UserResultsController {
   }
   @UseGuards(AdminGuard)
   @Get(':id')
-  async findUsersResult(@Param('id') id: string) {
-    return await this.userResultsService.findUsersResult(id);
+  async findUsersResult(@Param('id') id: string, @Query("categoryId") categoryId: string) {
+     return await this.userResultsService.findUsersResult(id, categoryId);
   }
 
   @Patch(':id')
