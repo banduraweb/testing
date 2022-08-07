@@ -21,12 +21,12 @@ import { ConnectionOptions } from 'typeorm';
 require('dotenv').config();
 const config: ConnectionOptions = {
   type: 'postgres',
-  host: process.env.DBHOST,
-  port: +process.env.DBPORT,
-  username: process.env.DBUSER,
-  password: process.env.DBPASSWORD,
-  database: process.env.DB,
-  schema: process.env.SCHEMA,
+  host: 'localhost',
+  port: 5432,
+  username: 'postgres',
+  password: '123456',
+  database: 'support',
+  // schema: process.env.SCHEMA,
   entities: [__dirname + '/**/*.entity{.ts,.js}'],
   synchronize: false,
   migrations: [__dirname + '/migrations/**/*{.ts,.js}'],

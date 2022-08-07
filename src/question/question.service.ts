@@ -14,6 +14,8 @@ import { VariantEntity } from '../variant/variant.entity';
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { UserResultEntity } from '../user-results/user-result.entity';
 import {CategoryEntity} from "../categories/entities/category.entity";
+import { UpdateQuestionDto } from './dto/update-question.dto';
+
 @Injectable()
 export class QuestionService {
   constructor(
@@ -116,5 +118,15 @@ export class QuestionService {
       throw new BadRequestException(`not found by id = ${id}`);
     }
     return await this.questionRepository.delete(parseInt(id));
+  }
+  async update(id: number, updateQuestionDto: UpdateQuestionDto) {
+    const question = await this.questionRepository.findOne(id)
+    // this.questionRepository.update(question)
+    const variant = await this.variantRepository
+    console.log(variant)
+
+    question.content = updateQuestionDto.content
+    return await this.questionRepository.save(question)
+    
   }
 }

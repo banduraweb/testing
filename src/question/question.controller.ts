@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  Patch,
   Param,
   Post, Query,
   UseGuards,
@@ -14,6 +15,7 @@ import { AdminGuard } from '../guards/admin.guard';
 import { Serialize } from '../interceptors/serialize.interceptor';
 import { CurrentUser } from '../decorators/current-user.decorator';
 import { CurrentUserType } from '../sharedTypes/current-user';
+import { UpdateQuestionDto } from './dto/update-question.dto'
 
 @Controller('/question')
 export class QuestionController {
@@ -32,5 +34,10 @@ export class QuestionController {
   @Delete('/:id')
   async delete(@Param('id') id: string) {
     return await this.questionService.delete(id);
+  }
+  @UseGuards(AdminGuard)
+  @Patch(':id')
+  update(@Param('id') id: string, @Body() updateQuestionDto: UpdateQuestionDto) {
+    return this.questionService.update(+id, updateQuestionDto);
   }
 }
